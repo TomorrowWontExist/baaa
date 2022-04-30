@@ -4,6 +4,36 @@ import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
+import i1 from "./assets/images/1.png";
+import i2 from "./assets/images/2.png";
+import i4 from "./assets/images/4.png";
+import i9 from "./assets/images/9.png";
+import i6 from "./assets/images/6.png";
+import i8 from "./assets/images/8.png";
+import i5 from "./assets/images/5.png";
+import i11 from "./assets/images/11.png";
+import i12 from "./assets/images/avrillabee.png";
+import i13 from "./assets/images/beebaked.png";
+import i14 from "./assets/images/beedapper.png";
+import i15 from "./assets/images/BeeDevilish.png";
+import i16 from "./assets/images/beehippie.png";
+import i17 from "./assets/images/BeeMoney.png";
+import i18 from "./assets/images/BeeOhazard.png";
+import i19 from "./assets/images/BeeWitched.png";
+import i20 from "./assets/images/breakfastbee.png";
+import i21 from "./assets/images/DontBeeSuspicious.png";
+import i22 from "./assets/images/donutking.png";
+import i23 from "./assets/images/drunkensailor.png";
+import i24 from "./assets/images/icecreambee.png";
+import i25 from "./assets/images/nursebee.png";
+import i26 from "./assets/images/piratebee.png";
+import i27 from "./assets/images/purgebee.png";
+import i28 from "./assets/images/shelbysfavoritebee.png";
+import i29 from "./assets/images/snowboardbee.png";
+import i30 from "./assets/images/sweetbee.png";
+import i31 from "./assets/images/vikingbee.png";
+import i90 from "./assets/images/90.png";
+import i97 from "./assets/images/logo.png";
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -16,7 +46,7 @@ export const StyledButton = styled.button`
   padding: 10px;
   font-weight: bold;
   color: var(--secondary-text);
-  width: 100px;
+  width: 200px;
   cursor: pointer;
   box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
   -webkit-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
@@ -53,6 +83,39 @@ export const StyledRoundButton = styled.button`
   }
 `;
 
+export const Gallery = styled.div`
+  height: 0px;
+  position: fixed;
+  margin-bottom: 0px;
+
+  .photobanner {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: bannermove 60s linear infinite alternate;
+
+    &:hover {
+      animation-play-state: ;
+    }
+  }
+
+  .photobanner img {
+    height: 200px;
+    margin: 0 .0em;
+  }
+
+  @keyframes bannermove {
+    70% {
+      transform: translate( -50%, 0);
+    }
+    70% {
+      transform: translate( 50%, 0);
+    }
+  }
+`;
+
 export const ResponsiveWrapper = styled.div`
   display: flex;
   flex: 1;
@@ -63,6 +126,23 @@ export const ResponsiveWrapper = styled.div`
   @media (min-width: 767px) {
     flex-direction: row;
   }
+`;
+
+export const StyledImg4 = styled.img`
+border-radius: 20px;
+color: #ffffff;
+cursor: pointer;
+box-shadow: 2px 8px 4px -2px rgba(100, 0, 250, 0.0);
+-webkit-box-shadow: 2px 3px 10px -2px rgba(100, 0, 250, 0);
+-moz-box-shadow: 2px 8px 4px -2px rgba(100, 0, 250, 0.0);
+:active {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
+:hover {
+  -webkit-box-shadow: 2px 3px 20px -2px rgba(250, 250, 0, 0.0);
+}
 `;
 
 export const StyledLogo = styled.img`
@@ -99,7 +179,7 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
+  const [feedback, setFeedback] = useState(`Mint your Baby Ape`);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -127,7 +207,7 @@ function App() {
     let totalGasLimit = String(gasLimit * mintAmount);
     console.log("Cost: ", totalCostWei);
     console.log("Gas limit: ", totalGasLimit);
-    setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
+    setFeedback(`Preparing your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
     blockchain.smartContract.methods
       .mint(mintAmount)
@@ -139,13 +219,13 @@ function App() {
       })
       .once("error", (err) => {
         console.log(err);
-        setFeedback("Sorry, something went wrong please try again later.");
+        setFeedback("It seems the transaction was cancelled or something went wrong, please try again.");
         setClaimingNft(false);
       })
       .then((receipt) => {
         console.log(receipt);
         setFeedback(
-          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
+          `Woohoo! Your Baby Ape is chillin at the Opensea Marketplace, go get em!`
         );
         setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
@@ -162,8 +242,8 @@ function App() {
 
   const incrementMintAmount = () => {
     let newMintAmount = mintAmount + 1;
-    if (newMintAmount > 10) {
-      newMintAmount = 10;
+    if (newMintAmount > 7) {
+      newMintAmount = 7;
     }
     setMintAmount(newMintAmount);
   };
@@ -198,12 +278,54 @@ function App() {
       <s.Container
         flex={1}
         ai={"center"}
-        style={{ padding: 24, backgroundColor: "var(--primary)" }}
+        style={{ padding: 0, backgroundColor: "var(--primary)" }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
-        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+        {/* <Gallery>
+          <div className='photobanner'>
+            <img src={i90} alt='' />
+            <img src={i26} alt='' />
+            <img src={i25} alt='' />
+            <img src={i24} alt='' />
+            <img src={i23} alt='' />
+            <img src={i22} alt='' />
+            <img src={i21} alt='' />
+            <img src={i20} alt='' />
+            <img src={i90} alt='' />
+            <img src={i19} alt='' />
+            <img src={i31} alt='' />
+            <img src={i30} alt='' />
+            <img src={i29} alt='' />
+            <img src={i28} alt='' />
+            <img src={i27} alt='' />
+            <img src={i12} alt='' />
+            <img src={i90} alt='' />
+            <img src={i13} alt='' />
+            <img src={i14} alt='' />
+            <img src={i15} alt='' />
+            <img src={i16} alt='' />
+            <img src={i17} alt='' />
+            <img src={i18} alt='' />
+            <img src={i19} alt='' />
+            <img src={i90} alt='' />
+            <img src={i20} alt='' />
+            <img src={i21} alt='' />
+            <img src={i22} alt='' />
+            <img src={i23} alt='' />
+            <img src={i26} alt='' />
+            <img src={i25} alt='' />
+            <img src={i24} alt='' />
+            <img src={i90} alt='' />
+          </div>
+        </Gallery> */}
+        <div>
+<a href="https://babyapeadoptionagency.com/">
+<StyledImg4 src={i97} style={{ padding: 0 }}/>
+</a>
+</div>
+        {/* <StyledLogo alt={"logo"} src={"/config/images/logo.png"} /> */}
         <s.SpacerSmall />
-        <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
+        <ResponsiveWrapper flex={1} style={{ padding: 40 }} test>
           <s.Container flex={1} jc={"center"} ai={"center"}>
             <StyledImg alt={"example"} src={"/config/images/example.gif"} />
           </s.Container>
@@ -215,7 +337,7 @@ function App() {
             style={{
               backgroundColor: "var(--accent)",
               padding: 24,
-              borderRadius: 24,
+              borderRadius: 100,
               border: "4px dashed var(--secondary)",
               boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
             }}
@@ -237,7 +359,7 @@ function App() {
               }}
             >
               <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
-                {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
+                {truncate(CONFIG.CONTRACT_ADDRESS, 20)}
               </StyledLink>
             </s.TextDescription>
             <s.SpacerSmall />
@@ -246,12 +368,12 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  The sale has ended.
+                  This collection has sold out.
                 </s.TextTitle>
                 <s.TextDescription
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  You can still find {CONFIG.NFT_NAME} on
+                  You can still trade {CONFIG.NFT_NAME} at
                 </s.TextDescription>
                 <s.SpacerSmall />
                 <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
@@ -292,7 +414,7 @@ function App() {
                         getData();
                       }}
                     >
-                      CONNECT
+                      CONNECT WALLET
                     </StyledButton>
                     {blockchain.errorMsg !== "" ? (
                       <>
@@ -360,7 +482,7 @@ function App() {
                           getData();
                         }}
                       >
-                        {claimingNft ? "BUSY" : "BUY"}
+                        {claimingNft ? "BUSY..." : "Mint your Baby Ape"}
                       </StyledButton>
                     </s.Container>
                   </>
@@ -387,20 +509,18 @@ function App() {
             }}
           >
             Please make sure you are connected to the right network (
-            {CONFIG.NETWORK.NAME} Mainnet) and the correct address. Please note:
-            Once you make the purchase, you cannot undo this action.
+            {CONFIG.NETWORK.NAME} Mainnet) and the correct wallet address. <p/>
+            Gas is set to {CONFIG.GAS_LIMIT}, we do not recommend lowering this to ensure your transaction goes through.
           </s.TextDescription>
           <s.SpacerSmall />
-          <s.TextDescription
+          {/* <s.TextDescription
             style={{
               textAlign: "center",
               color: "var(--primary-text)",
             }}
           >
-            We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
-            successfully mint your NFT. We recommend that you don't lower the
-            gas limit.
-          </s.TextDescription>
+            Mobile users must open TheBeeCollab.io from MetaMask Browser to mint an NFT
+          </s.TextDescription> */}
         </s.Container>
       </s.Container>
     </s.Screen>
